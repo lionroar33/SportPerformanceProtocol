@@ -3,8 +3,7 @@ This repository hosts the Performance Oracle for sports, using a NestJS backend 
 
 📌 GitHub Asset (The “Proof of Work” Anchor)
 
-🎯 Action
-
+🎯 Action :
 Set up the repository and initialize the NestJS project to demonstrate active commit history and engineering maturity.
 
 ⚙️ Project Initialization:
