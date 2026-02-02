@@ -8,7 +8,7 @@ This repository hosts the Performance Oracle for sports, using a NestJS backend 
 Set up the repository and initialize the NestJS project to demonstrate active commit history and engineering maturity.
 
 ⚙️ Project Initialization:
-nest new cricket-performance-protocol (Choose npm as the package manager and TypeScript as the language.)
+nest new sports-performance-protocol (Choose npm as the package manager and TypeScript as the language.)
 
 
 🧩 Modular Folder Structure
