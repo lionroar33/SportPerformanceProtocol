@@ -1,4 +1,6 @@
 # SportPerformanceProtocol
+The Sports Performance Protocol is a decentralized engine designed to tokenize physical performance across multiple disciplines, starting with Cricket and expanding to Football and Tennis. It uses a NestJS Oracle to bridge real-world sports data with Solana’s high-speed blockchain.
+
 This repository hosts the Performance Oracle for sports, using a NestJS backend as a trust layer between real-world sports data and the Solana blockchain".
 
 📌 GitHub Asset (The “Proof of Work” Anchor)
