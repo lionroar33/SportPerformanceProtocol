@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ForumsController } from './forums.controller';
+import { ForumsService } from './forums.service';
 
 /**
  * Module 5 - Community Discussion Space
@@ -13,6 +14,7 @@ import { ForumsController } from './forums.controller';
  */
 @Module({
   controllers: [ForumsController],
-  providers: [],
+  providers: [ForumsService],
+  exports: [ForumsService],
 })
 export class ForumsModule {}
