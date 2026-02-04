@@ -47,8 +47,8 @@ export class BlockchainController {
   // ============================================
 
   @Post('api/wallet/connect')
-  connectWallet(@Body() dto: ConnectWalletDto) {
-    const wallet = this.blockchainService.connectWallet(dto);
+  async connectWallet(@Body() dto: ConnectWalletDto) {
+    const wallet = await this.blockchainService.connectWallet(dto);
     return { success: true, data: wallet };
   }
 
