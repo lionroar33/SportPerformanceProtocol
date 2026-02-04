@@ -3,6 +3,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 
 // Shared Modules
 import { RedisModule } from './shared/redis/redis.module';
+import { WebacyModule } from './modules/webacy/webacy.module';
 
 // Feature Modules (All 11 Modules)
 import { AuthModule } from './modules/auth/auth.module';
@@ -36,12 +37,14 @@ import { WearablesModule } from './modules/wearables/wearables.module';
  * Shared Infrastructure:
  * - Redis Module - Pub/Sub for real-time updates
  * - Event Emitter - Cross-module event communication
+ * - Webacy Module - Security screening (wallet risk, sanctions, contracts)
  */
 @Module({
   imports: [
     // Infrastructure
     EventEmitterModule.forRoot(),
     RedisModule,
+    WebacyModule,
 
     // Feature Modules
     AuthModule,

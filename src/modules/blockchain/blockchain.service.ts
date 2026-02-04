@@ -1,11 +1,17 @@
 /**
  * Blockchain Service
  * Phase 5: Solana Integration & Tokenomics
+ *
+ * Security: Integrated with Webacy for wallet screening
+ * - All wallets are screened before connecting
+ * - All wallets are screened before token burns
+ * - Sanctioned and high-risk wallets are blocked
  */
 
 import { Injectable, NotFoundException, BadRequestException, Logger } from '@nestjs/common';
 import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
 import { v4 as uuidv4 } from 'uuid';
+import { WebacyService } from '../webacy/webacy.service';
 import {
   TokenTier,
   TransactionStatus,
@@ -80,17 +86,24 @@ export class BlockchainService {
     rewardsDistributed: 0,
   };
 
-  constructor(private eventEmitter: EventEmitter2) {}
+  constructor(
+    private eventEmitter: EventEmitter2,
+    private webacyService: WebacyService,
+  ) {}
 
   // ============================================
   // Wallet Management
   // ============================================
 
-  connectWallet(dto: ConnectWalletDto): UserWallet {
+  async connectWallet(dto: ConnectWalletDto): Promise<UserWallet> {
     // Validate wallet address format (Solana addresses are base58, ~44 chars)
     if (!this.isValidSolanaAddress(dto.walletAddress)) {
       throw new BadRequestException('Invalid Solana wallet address');
     }
+
+    // Webacy Security: Screen wallet before allowing connection
+    this.logger.log(`Screening wallet ${dto.walletAddress} before connection...`);
+    await this.webacyService.screenWalletForBurn(dto.walletAddress);
 
     // Check if wallet already connected to another user
     const existingWallet = Array.from(this.wallets.values())
@@ -181,6 +194,13 @@ export class BlockchainService {
   }
 
   async createTokenTransaction(dto: CreateTokenTransactionDto): Promise<TokenTransaction> {
+    // Webacy Security: Screen wallet before any burn transaction
+    const wallet = this.wallets.get(dto.userId);
+    if (wallet) {
+      this.logger.log(`Screening wallet ${wallet.walletAddress} before burn transaction...`);
+      await this.webacyService.screenWalletForBurn(wallet.walletAddress);
+    }
+
     const burnMultiplier = BURN_MULTIPLIERS[dto.rewardTier];
     const baseReward = BASE_REWARDS[dto.rewardTier];
 
