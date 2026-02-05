@@ -96,3 +96,5 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+Security Update : explicitly state that the protocol is 'Secured by Webacy.' Mention that we are using their Risk Engine to vet all athlete wallets. This is a huge selling point for our 'Security-First' narrative.
